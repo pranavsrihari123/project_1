@@ -1,0 +1,3 @@
+FLASK_APP=project_1.py
+FLASK_ENV=development
+FLASK_RUN_PORT=8001
