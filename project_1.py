@@ -42,6 +42,7 @@ def data():
                 first_right = True
                 right_lf = 0
                 right_ll = 0
+                total_ll = 0
                 for x in range(start_trial, end_trial+1):
                     if(x!=end_trial and output_data['Start'][x]>max_dur):
                         continue
@@ -93,12 +94,14 @@ def data():
                     else:
                         d['Duration'].append(output_data['Stop'][start_trial])
                     d['Behaviour'].append(output_data['Behaviour'][x])
+                    if x!=end_trial:
+                        total_ll = x
                 
                 d['Total n'][0] = len(tot_duration)
                 d['Total cd'][0] = sum(tot_duration)
                 d['Total me'][0] =  sum(tot_duration)/len(tot_duration)
                 d['Total lf'][0] =  output_data['Start'][start_trial+1] - output_data['Start'][start_trial]
-                d['Total ll'][0] =  output_data['Start'][end_trial-1] - output_data['Start'][start_trial]
+                d['Total ll'][0] =  output_data['Start'][total_ll] - output_data['Start'][start_trial]
                 d['Total md'][0] = statistics.median(tot_duration)
                 d['Total sd'][0] = statistics.stdev(tot_duration)
                 d['Total se'][0] = statistics.stdev(tot_duration)/statistics.sqrt(sum(tot_duration))
@@ -134,7 +137,7 @@ def data():
                 n_i['Total cd'].append(sum(tot_duration))
                 n_i['Total me'].append(sum(tot_duration)/len(tot_duration))
                 n_i['Total lf'].append(output_data['Start'][start_trial+1] - output_data['Start'][start_trial])
-                n_i['Total ll'].append(output_data['Start'][end_trial-1] - output_data['Start'][start_trial])
+                n_i['Total ll'].append(output_data['Start'][total_ll] - output_data['Start'][start_trial])
                 n_i['Total md'].append(statistics.median(tot_duration))
                 n_i['Total sd'].append(statistics.stdev(tot_duration))
                 n_i['Total se'].append(statistics.stdev(tot_duration)/statistics.sqrt(sum(tot_duration)))
