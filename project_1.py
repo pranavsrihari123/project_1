@@ -98,32 +98,97 @@ def data():
                         total_ll = x
                 
                 d['Total n'][0] = len(tot_duration)
-                d['Total cd'][0] = sum(tot_duration)
-                d['Total me'][0] =  sum(tot_duration)/len(tot_duration)
-                d['Total lf'][0] =  output_data['Start'][start_trial+1] - output_data['Start'][start_trial]
-                d['Total ll'][0] =  output_data['Start'][total_ll] - output_data['Start'][start_trial]
-                d['Total md'][0] = statistics.median(tot_duration)
-                d['Total sd'][0] = statistics.stdev(tot_duration)
-                d['Total se'][0] = statistics.stdev(tot_duration)/statistics.sqrt(sum(tot_duration))
-                d['Total Dur'][0] = output_data['Start'][end_trial] - output_data['Start'][start_trial]
+                if len(tot_duration)>0:
+                    d['Total cd'][0] = sum(tot_duration)
+                    d['Total me'][0] =  sum(tot_duration)/len(tot_duration)
+                    d['Total lf'][0] =  output_data['Start'][start_trial+1] - output_data['Start'][start_trial]
+                    d['Total ll'][0] =  output_data['Start'][total_ll] - output_data['Start'][start_trial]
+                    d['Total md'][0] = statistics.median(tot_duration)
+                    d['Total Dur'][0] = output_data['Start'][end_trial] - output_data['Start'][start_trial]
+                    n_i['Total cd'].append(sum(tot_duration))
+                    n_i['Total me'].append(sum(tot_duration)/len(tot_duration))
+                    n_i['Total lf'].append(output_data['Start'][start_trial+1] - output_data['Start'][start_trial])
+                    n_i['Total ll'].append(output_data['Start'][total_ll] - output_data['Start'][start_trial])
+                    n_i['Total md'].append(statistics.median(tot_duration))
+                    n_i['Total Dur'].append(output_data['Start'][end_trial] - output_data['Start'][start_trial])
+                else:
+                    d['Total cd'][0] = 0
+                    d['Total me'][0] = 0
+                    d['Total lf'][0] = 0
+                    d['Total ll'][0] = 0
+                    d['Total md'][0] = 0
+                    d['Total Dur'][0] = 0
+                    n_i['Total cd'].append(0)
+                    n_i['Total me'].append(0)
+                    n_i['Total lf'].append(0)
+                    n_i['Total ll'].append(0)
+                    n_i['Total md'].append(0)
+                    n_i['Total Dur'].append(0)
+                if len(tot_duration)>1:
+                    d['Total sd'][0] = statistics.stdev(tot_duration)
+                    d['Total se'][0] = statistics.stdev(tot_duration)/statistics.sqrt(sum(tot_duration))
+                    n_i['Total sd'].append(statistics.stdev(tot_duration))
+                    n_i['Total se'].append(statistics.stdev(tot_duration)/statistics.sqrt(sum(tot_duration)))
+                else:
+                    d['Total sd'][0] = '.'
+                    d['Total se'][0] = '.'
+                    n_i['Total sd'].append('.')
+                    n_i['Total se'].append('.')
+
+
                 d['Left n'][0] = len(left_duration)
-                d['Left cd'][0] = sum(left_duration)
-                d['Left me'][0] =  sum(left_duration)/len(left_duration)
-                d['Left lf'][0] =  output_data['Start'][left_lf] - output_data['Start'][start_trial]
-                d['Left ll'][0] =  output_data['Start'][left_ll] - output_data['Start'][start_trial]
-                d['Left md'][0] = statistics.median(left_duration)
+                if len(left_duration)>0:
+                    d['Left cd'][0] = sum(left_duration)
+                    d['Left me'][0] =  sum(left_duration)/len(left_duration)
+                    d['Left lf'][0] =  output_data['Start'][left_lf] - output_data['Start'][start_trial]
+                    d['Left ll'][0] =  output_data['Start'][left_ll] - output_data['Start'][start_trial]
+                    d['Left md'][0] = statistics.median(left_duration)
+                    n_i['Left cd'].append(sum(left_duration))
+                    n_i['Left me'].append(sum(left_duration)/len(left_duration))
+                    n_i['Left lf'].append(output_data['Start'][left_lf] - output_data['Start'][start_trial])
+                    n_i['Left ll'].append(output_data['Start'][left_ll] - output_data['Start'][start_trial])
+                    n_i['Left md'].append(statistics.median(left_duration))
+                else:
+                    d['Left cd'][0] = 0
+                    d['Left me'][0] = 0
+                    d['Left lf'][0] = 0
+                    d['Left ll'][0] = 0
+                    d['Left md'][0] = 0
+                    n_i['Left cd'].append(0)
+                    n_i['Left me'].append(0)
+                    n_i['Left lf'].append(0)
+                    n_i['Left ll'].append(0)
+                    n_i['Left md'].append(0)
                 if (len(left_duration)>1):
                     d['Left sd'][0] = statistics.stdev(left_duration)
                     d['Left se'][0] = statistics.stdev(left_duration)/statistics.sqrt(sum(left_duration))
                 else:
                     d['Left sd'][0] = '.'
                     d['Left se'][0] = '.'
+
                 d['Right n'][0] = len(right_duration)
-                d['Right cd'][0] = sum(right_duration)
-                d['Right me'][0] =  sum(right_duration)/len(right_duration)
-                d['Right lf'][0] =  output_data['Start'][right_lf] - output_data['Start'][start_trial]
-                d['Right ll'][0] =  output_data['Start'][right_ll] - output_data['Start'][start_trial]
-                d['Right md'][0] = statistics.median(right_duration)
+                if len(right_duration)>0:
+                    d['Right cd'][0] = sum(right_duration)
+                    d['Right me'][0] =  sum(right_duration)/len(right_duration)
+                    d['Right lf'][0] =  output_data['Start'][right_lf] - output_data['Start'][start_trial]
+                    d['Right ll'][0] =  output_data['Start'][right_ll] - output_data['Start'][start_trial]
+                    d['Right md'][0] = statistics.median(right_duration)
+                    n_i['Right cd'].append(sum(right_duration))
+                    n_i['Right me'].append(sum(right_duration)/len(right_duration))
+                    n_i['Right lf'].append(output_data['Start'][right_lf] - output_data['Start'][start_trial])
+                    n_i['Right ll'].append(output_data['Start'][right_ll] - output_data['Start'][start_trial])
+                    n_i['Right md'].append(statistics.median(right_duration))
+                else:
+                    d['Right cd'][0] = 0
+                    d['Right me'][0] = 0
+                    d['Right lf'][0] = 0
+                    d['Right ll'][0] = 0
+                    d['Right md'][0] = 0
+                    n_i['Right cd'].append(0)
+                    n_i['Right me'].append(0)
+                    n_i['Right lf'].append(0)
+                    n_i['Right ll'].append(0)
+                    n_i['Right md'].append(0)
                 if (len(right_duration)>1):
                     d['Right sd'][0] = statistics.stdev(right_duration)
                     d['Right se'][0] = statistics.stdev(right_duration)/statistics.sqrt(sum(right_duration))
@@ -134,20 +199,7 @@ def data():
                 n_i['trial_no'].append(trial_no+1)
                 n_i['Subject'].append(master_sheet['Subject'][trial_no])
                 n_i['Total n'].append(len(tot_duration))
-                n_i['Total cd'].append(sum(tot_duration))
-                n_i['Total me'].append(sum(tot_duration)/len(tot_duration))
-                n_i['Total lf'].append(output_data['Start'][start_trial+1] - output_data['Start'][start_trial])
-                n_i['Total ll'].append(output_data['Start'][total_ll] - output_data['Start'][start_trial])
-                n_i['Total md'].append(statistics.median(tot_duration))
-                n_i['Total sd'].append(statistics.stdev(tot_duration))
-                n_i['Total se'].append(statistics.stdev(tot_duration)/statistics.sqrt(sum(tot_duration)))
-                n_i['Total Dur'].append(output_data['Start'][end_trial] - output_data['Start'][start_trial])
                 n_i['Left n'].append(len(left_duration))
-                n_i['Left cd'].append(sum(left_duration))
-                n_i['Left me'].append(sum(left_duration)/len(left_duration))
-                n_i['Left lf'].append(output_data['Start'][left_lf] - output_data['Start'][start_trial])
-                n_i['Left ll'].append(output_data['Start'][left_ll] - output_data['Start'][start_trial])
-                n_i['Left md'].append(statistics.median(left_duration))
                 if(len(left_duration)>1):
                     n_i['Left sd'].append(statistics.stdev(left_duration))
                     n_i['Left se'].append(statistics.stdev(left_duration)/statistics.sqrt(sum(left_duration)))
@@ -155,11 +207,6 @@ def data():
                     n_i['Left sd'].append('.')
                     n_i['Left se'].append('.')
                 n_i['Right n'].append(len(right_duration))
-                n_i['Right cd'].append(sum(right_duration))
-                n_i['Right me'].append(sum(right_duration)/len(right_duration))
-                n_i['Right lf'].append(output_data['Start'][right_lf] - output_data['Start'][start_trial])
-                n_i['Right ll'].append(output_data['Start'][right_ll] - output_data['Start'][start_trial])
-                n_i['Right md'].append(statistics.median(right_duration))
                 if(len(right_duration)>1):
                     n_i['Right sd'].append(statistics.stdev(right_duration))
                     n_i['Right se'].append(statistics.stdev(right_duration)/statistics.sqrt(sum(right_duration)))
@@ -169,11 +216,18 @@ def data():
                 
                 if (master_sheet['Novel Object Name'][trial_no]=='R'):
                     n_i['Sample n'].append(len(left_duration))
-                    n_i['Sample cd'].append(sum(left_duration))
-                    n_i['Sample me'].append(sum(left_duration)/len(left_duration))
-                    n_i['Sample lf'].append(output_data['Start'][left_lf] - output_data['Start'][start_trial])
-                    n_i['Sample ll'].append(output_data['Start'][left_ll] - output_data['Start'][start_trial])
-                    n_i['Sample md'].append(statistics.median(left_duration))
+                    if len(left_duration)>0:
+                        n_i['Sample cd'].append(sum(left_duration))
+                        n_i['Sample me'].append(sum(left_duration)/len(left_duration))
+                        n_i['Sample lf'].append(output_data['Start'][left_lf] - output_data['Start'][start_trial])
+                        n_i['Sample ll'].append(output_data['Start'][left_ll] - output_data['Start'][start_trial])
+                        n_i['Sample md'].append(statistics.median(left_duration))
+                    else:
+                        n_i['Sample cd'].append(0)
+                        n_i['Sample me'].append(0)
+                        n_i['Sample lf'].append(0)
+                        n_i['Sample ll'].append(0)
+                        n_i['Sample md'].append(0)
                     if(len(left_duration)>1):
                         n_i['Sample sd'].append(statistics.stdev(left_duration))
                         n_i['Sample se'].append(statistics.stdev(left_duration)/statistics.sqrt(sum(left_duration)))
@@ -181,11 +235,18 @@ def data():
                         n_i['Sample sd'].append('.')
                         n_i['Sample se'].append('.')
                     n_i['Novel n'].append(len(right_duration))
-                    n_i['Novel cd'].append(sum(right_duration))
-                    n_i['Novel me'].append(sum(right_duration)/len(right_duration))
-                    n_i['Novel lf'].append(output_data['Start'][right_lf] - output_data['Start'][start_trial])
-                    n_i['Novel ll'].append(output_data['Start'][right_ll] - output_data['Start'][start_trial])
-                    n_i['Novel md'].append(statistics.median(right_duration))
+                    if len(right_duration)>0:
+                        n_i['Novel cd'].append(sum(right_duration))
+                        n_i['Novel me'].append(sum(right_duration)/len(right_duration))
+                        n_i['Novel lf'].append(output_data['Start'][right_lf] - output_data['Start'][start_trial])
+                        n_i['Novel ll'].append(output_data['Start'][right_ll] - output_data['Start'][start_trial])
+                        n_i['Novel md'].append(statistics.median(right_duration))
+                    else:
+                        n_i['Novel cd'].append(0)
+                        n_i['Novel me'].append(0)
+                        n_i['Novel lf'].append(0)
+                        n_i['Novel ll'].append(0)
+                        n_i['Novel md'].append(0)
                     if(len(right_duration)>1):
                         n_i['Novel sd'].append(statistics.stdev(right_duration))
                         n_i['Novel se'].append(statistics.stdev(right_duration)/statistics.sqrt(sum(right_duration)))
@@ -194,11 +255,18 @@ def data():
                         n_i['Novel se'].append('.')
                 else:
                     n_i['Novel n'].append(len(left_duration))
-                    n_i['Novel cd'].append(sum(left_duration))
-                    n_i['Novel me'].append(sum(left_duration)/len(left_duration))
-                    n_i['Novel lf'].append(output_data['Start'][left_lf] - output_data['Start'][start_trial])
-                    n_i['Novel ll'].append(output_data['Start'][left_ll] - output_data['Start'][start_trial])
-                    n_i['Novel md'].append(statistics.median(left_duration))
+                    if len(left_duration)>0:
+                        n_i['Novel cd'].append(sum(left_duration))
+                        n_i['Novel me'].append(sum(left_duration)/len(left_duration))
+                        n_i['Novel lf'].append(output_data['Start'][left_lf] - output_data['Start'][start_trial])
+                        n_i['Novel ll'].append(output_data['Start'][left_ll] - output_data['Start'][start_trial])
+                        n_i['Novel md'].append(statistics.median(left_duration))
+                    else:
+                        n_i['Novel cd'].append(0)
+                        n_i['Novel me'].append(0)
+                        n_i['Novel lf'].append(0)
+                        n_i['Novel ll'].append(0)
+                        n_i['Novel md'].append(0)
                     if(len(left_duration)>1):
                         n_i['Novel sd'].append(statistics.stdev(left_duration))
                         n_i['Novel se'].append(statistics.stdev(left_duration)/statistics.sqrt(sum(left_duration)))
@@ -206,11 +274,18 @@ def data():
                         n_i['Novel sd'].append('.')
                         n_i['Novel se'].append('.')
                     n_i['Sample n'].append(len(right_duration))
-                    n_i['Sample cd'].append(sum(right_duration))
-                    n_i['Sample me'].append(sum(right_duration)/len(right_duration))
-                    n_i['Sample lf'].append(output_data['Start'][right_lf] - output_data['Start'][start_trial])
-                    n_i['Sample ll'].append(output_data['Start'][right_ll] - output_data['Start'][start_trial])
-                    n_i['Sample md'].append(statistics.median(right_duration))
+                    if len(right_duration)>0:
+                        n_i['Sample cd'].append(sum(right_duration))
+                        n_i['Sample me'].append(sum(right_duration)/len(right_duration))
+                        n_i['Sample lf'].append(output_data['Start'][right_lf] - output_data['Start'][start_trial])
+                        n_i['Sample ll'].append(output_data['Start'][right_ll] - output_data['Start'][start_trial])
+                        n_i['Sample md'].append(statistics.median(right_duration))
+                    else:
+                        n_i['Sample cd'].append(0)
+                        n_i['Sample me'].append(0)
+                        n_i['Sample lf'].append(0)
+                        n_i['Sample ll'].append(0)
+                        n_i['Sample md'].append(0)
                     if(len(right_duration)>1):
                         n_i['Sample sd'].append(statistics.stdev(right_duration))
                         n_i['Sample se'].append(statistics.stdev(right_duration)/statistics.sqrt(sum(right_duration)))
@@ -223,6 +298,9 @@ def data():
                 trial_no += 1
             n+=1
         
+        for key, value in n_i.items():
+            print(key)
+            print(len(value))
         
         with pd.ExcelWriter('output.xlsx') as writer:
             for t in range(len(trials)):
@@ -231,7 +309,6 @@ def data():
             n_f = pd.DataFrame(data=n_i)
             n_f.to_excel(writer, sheet_name='Loopy SAS Nested Index Model', index=False)
             
-
 
         return send_file('output.xlsx', as_attachment=True)
 
